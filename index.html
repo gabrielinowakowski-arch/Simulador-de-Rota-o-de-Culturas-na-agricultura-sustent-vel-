@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho 2026 - Agro Forte e Sustentável</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* ==================== ESTILOS (CSS) ==================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f9f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Topo do Site */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 90px 20px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+
+        /* Seções Gerais */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #81c784;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Painel de Informações e Curiosidades */
+        .info-box {
+            background-color: #ffffff;
+            border-left: 5px solid #2e7d32;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .curiosidades-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .curiosidades-grid { grid-template-columns: 1fr; }
+        }
+
+        .curiosidade-item {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 3px solid #66bb6a;
+        }
+
+        .curiosidade-item strong {
+            color: #1b5e20;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Galeria de Culturas */
+        .grid-culturas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card-cultura {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            border-bottom: 4px solid #2e7d32;
+        }
+
+        .card-cultura img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-cultura h3 {
+            padding: 15px 10px 5px 10px;
+            color: #388e3c;
+        }
+
+        .card-cultura p {
+            padding: 0 15px 15px 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Seção do Gráfico */
+        .grafico-section {
+            background-color: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .chart-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Seção do Jogo */
+        .jogo-section {
+            background: #e8f5e9;
+            padding: 40px 20px;
+            border-radius: 16px;
+            border: 2px dashed #81c784;
+        }
+
+        .game-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .status-item {
+            margin: 12px 0;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .bar-container {
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            height: 20px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .bar {
+            height: 100%;
+            width: 50%;
+            transition: width 0.4s ease;
+        }
+
+        #bar-producao { background-color: #ff9800; }
+        #bar-ambiente { background-color: #4caf50; }
+
+        .card-dilema {
+            background-color: #8d6e63;
+            color: white;
+            padding: 25px 15px;
+            border-radius: 10px;
+            margin: 25px 0;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .button-area {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn:active { transform: scale(0.98); }
+        .btn-a { background-color: #ffe0b2; color: #e65100; border: 1px solid #ffb74d; }
+        .btn-b { background-color: #c8e6c9; color: #1b5e20; border: 1px solid #81c784; }
+
+        /* Rodapé */
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Agro Forte, Futuro Sustentável</h1>
+        <p>Agrinho 2026: O equilíbrio essencial entre a produção de alimentos e a preservação do planeta.</p>
+    </header>
+
+    <div class="container">
+
+        <section>
+            <h2>Informações & Conectividade</h2>
+            <div class="info-box">
+                <p>O grande desafio do século XXI é alimentar uma população global crescente sem esgotar os recursos naturais da Terra. O <strong>equilíbrio</strong> não significa produzir menos, mas produzir melhor através do uso de biotecnologia, manejo correto do solo, preservação de nascentes e rotação estratégica de culturas.</p>
+            </div>
+            
+            <div class="curiosidades-grid">
+                <div class="curiosidade-item">
+                    <strong>💡 Você sabia?</strong>
+                    A rotação de culturas (como intercalar milho e feijão) quebra o ciclo de vida das pragas de forma natural, reduzindo drasticamente a necessidade de defensivos químicos.
+                </div>
+                <div class="curiosidade-item">
+                    <strong>🌱 Superpoder do Feijão</strong>
+                    O feijão e outras leguminosas capturam o nitrogênio do ar e o depositam de volta na terra. Isso funciona como um adubo natural e gratuito para a próxima plantação.
+                </div>
+                <div class="curiosidade-item">
+                    <strong>💧 Tecnologia de Gota</strong>
+                    A irrigação por gotejamento inteligente direciona a água direto na raiz da planta. Esse sistema economiza até 60% de água em comparação com os métodos tradicionais de inundação.
+                </div>
+                <div class="curiosidade-item">
+                    <strong>🐂 Sombra Amiga</strong>
+                    No sistema ILPF (Integração Lavoura-Pecuária-Floresta), as árvores plantadas no pasto ajudam a reter carbono no solo, evitam a erosão e aumentam o bem-estar do gado.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Nossas Culturas Prósperas</h2>
+            <div class="grid-culturas">
+                
+                <div class="card-cultura">
+                    <img src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=400&q=80" alt="Plantação de Soja no Brasil">
+                    <h3>Soja Tecnológica</h3>
+                    <p>Produzida com o Sistema de Plantio Direto, que mantém as palhadas anteriores na terra para evitar a degradação e reter nutrientes essenciais.</p>
+                </div>
+
+                <div class="card-cultura">
+                    <img src="https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?auto=format&fit=crop&w=400&q=80" alt="Plantação de Milho saudável">
+                    <h3>Milho Protegido</h3>
+                    <p>Cultivado em sincronia ambiental, aproveitando as épocas naturais de chuva para otimizar os recursos hídricos da propriedade.</p>
+                </div>
+
+                <div class="card-cultura">
+                    <img src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&w=400&q=80" alt="Gado em pastagem com manejo sustentável">
+                    <h3>Pastagem Manejada</h3>
+                    <p>Pasto rotacionado integrado que evita o desgaste do solo, dividindo espaço harmonicamente com árvores e vegetações nativas.</p>
+                </div>
+
+                <div class="card-cultura">
+                    <img src="https://images.unsplash.com/photo-1606856101416-0a06642d99bc?auto=format&fit=crop&w=400&q=80" alt="Vagens de feijão na lavoura">
+                    <h3>Feijão Nutritivo</h3>
+                    <p>Essencial para a segurança alimentar do país e um aliado biológico fantástico para a reposição de nitrogênio na terra.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="grafico-section">
+            <h2>Dados do Impacto Real</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: #555;">Análise comparativa: Veja como as práticas sustentáveis superam o modelo tradicional a longo prazo:</p>
+            <div class="chart-container">
+                <canvas id="meuGrafico"></canvas>
+            </div>
+        </section>
+
+        <section class="jogo-section">
+            <h2>Simulador Virtual: O Desafio do Equilíbrio</h2>
+            <p style="text-align: center; margin-bottom: 25px; color: #444;">Tome as decisões certas na sua fazenda. Seu objetivo é manter ambos os indicadores acima de 50%!</p>
+            
+            <div class="game-container">
+                <div class="status-item">
+                    <span>🚜 Produtividade do Agro:</span>
+                    <div class="bar-container">
+                        <div id="bar-producao" class="bar"></div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <span>🌱 Preservação Ambiental:</span>
+                    <div class="bar-container">
+                        <div id="bar-ambiente" class="bar"></div>
+                    </div>
+                </div>
+
+                <div class="card-dilema">
+                    <p id="card-texto">Carregando cenário...</p>
+                </div>
+
+                <div class="button-area">
+                    <button id="btn-opcao-a" class="btn btn-a">Opção A</button>
+                    <button id="btn-opcao-b" class="btn btn-b">Opção B</button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>Projeto Desenvolvido para o Concurso Agrinho 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 5px; opacity: 0.8;">Unindo tecnologia, consciência e produção.</p>
+    </footer>
+
+    <script>
+        // --- CONFIGURAÇÃO DO GRÁFICO ---
+        const ctx = document.getElementById('meuGrafico').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Modelo Predatório Tradicional', 'Modelo Sustentável (Equilibrado)'],
+                datasets: [{
+                    label: 'Eficiência de Production (%)',
+                    data: [80, 95],
+                    backgroundColor: '#ff9800',
+                    borderWidth: 1
+                }, {
+                    label: 'Preservação de Recursos Naturais (%)',
+                    data: [25, 90],
+                    backgroundColor: '#4caf50',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+
+        // --- CONFIGURAÇÃO DO JOGO ---
+        let prod = 50;
+        let amb = 50;
+        let indice = 0;
+
+        const dilemas = [
+            {
+                texto: "Surgiu uma lagarta na plantação de Soja e Feijão. O que fazer?",
+                opA: "Aplicar inseticida químico forte (Rápido, mas elimina polinizadores importantes).",
+                opB: "Utilizar defensivos biológicos (Focado na praga, protegendo as abelhas locais).",
+                efA: { p: 20, a: -25 }, efB: { p: 10, a: 15 }
+            },
+            {
+                texto: "Como você vai planejar a próxima colheita de Milho?",
+                opA: "Plantar milho seguidamente na mesma área (Esgota os nutrientes da terra rapidamente).",
+                opB: "Fazer rotação de culturas revezando com o feijão (Nutre o solo de forma orgânica).",
+                efA: { p: 15, a: -30 }, efB: { p: 15, a: 20 }
+            },
+            {
+                texto: "O setor de Pastagem está sofrendo com a falta de água na seca. Qual caminho seguir?",
+                opA: "Bombear água em excesso do rio da região (Gasta muita energia e prejudica a fauna hídrica).",
+                opB: "Utilizar cisternas de água da chuva coletada e aplicar irrigação por gotejamento.",
+                efA: { p: 10, a: -25 }, efB: { p: 15, a: 25 }
+            }
+        ];
+
+        const txtCard = document.getElementById("card-texto");
+        const btnA = document.getElementById("btn-opcao-a");
+        const btnB = document.getElementById("btn-opcao-b");
+        const bProd = document.getElementById("bar-producao");
+        const bAmb = document.getElementById("bar-ambiente");
+
+        function redesenharMedidores() {
+            bProd.style.width = prod + "%";
+            bAmb.style.width = amb + "%";
+        }
+
+        function carregarFase() {
+            redesenharMedidores();
+            if (indice < dilemas.length) {
+                let d = dilemas[indice];
+                txtCard.innerText = d.texto;
+                btnA.innerText = "Opção A: " + d.opA;
+                btnB.innerText = "Opção B: " + d.opB;
+            } else {
+                btnA.style.display = "none";
+                btnB.style.display = "none";
+                
+                if (prod >= 50 && amb >= 50) {
+                    txtCard.innerHTML = "🏆 <strong>Vitória Sustentável!</strong><br><br>Excelente! Você equilibrou perfeitamente as forças. Mostrou que o agro pode produzir muito e proteger o amanhã!";
+                } else if (prod < 50) {
+                    txtCard.innerHTML = "📉 <strong>Prejuízo Econômico!</strong><br><br>A intenção ambiental foi ótima, mas a fazenda não produziu comida o suficiente e faliu financeiramente.";
+                } else {
+                    txtCard.innerHTML = "⚠️ <strong>Colapso Ambiental!</strong><br><br>Sua fazenda gerou lucro imediato, mas destruiu as fontes de água e desgastou a terra. Sem natureza, não haverá próxima safra.";
+                }
+            }
+        }
+
+        function jogar(escolha) {
+            let efeito = dilemas[indice][escolha];
+            prod = Math.max(0, Math.min(100, prod + efeito.p));
+            amb = Math.max(0, Math.min(100, amb + efeito.a));
+            indice++;
+            setTimeout(carregarFase, 300);
+        }
+
+        btnA.addEventListener("click", () => jogar("efA"));
+        btnB.addEventListener("click", () => jogar("efB"));
+
+        carregarFase();
+    </script>
+</body>
+</html>
