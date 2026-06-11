@@ -1,0 +1,227 @@
+/* ==================== ESTILOS (CSS) ==================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Topo do Site */
+header {
+    background: #2e7d32; /* Fundo sólido verde */
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* Seções Gerais */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+section {
+    margin-bottom: 60px;
+}
+
+h2 {
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: #81c784;
+    margin: 10px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* Painel de Informações e Curiosidades */
+.info-box {
+    background-color: #ffffff;
+    border-left: 5px solid #2e7d32;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.curiosidades-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .curiosidades-grid { grid-template-columns: 1fr; }
+}
+
+.curiosidade-item {
+    background-color: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    border-top: 3px solid #66bb6a;
+}
+
+.curiosidade-item strong {
+    color: #1b5e20;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Blocos das Culturas (Sem Imagens) */
+.grid-culturas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card-cultura {
+    background: white;
+    border-radius: 8px;
+    padding: 25px 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    border-top: 6px solid #2e7d32;
+}
+
+/* Cores de destaque para cada cultura */
+.soja { border-top-color: #cbd5e1; } 
+.milho { border-top-color: #fbc02d; } 
+.pastagem { border-top-color: #4caf50; } 
+.feijao { border-top-color: #8d6e63; } 
+
+.card-cultura h3 {
+    margin-bottom: 12px;
+    color: #1b5e20;
+    font-size: 1.3rem;
+}
+
+.card-cultura p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Seção do Gráfico */
+.grafico-section {
+    background-color: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.chart-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Seção do Jogo */
+.jogo-section {
+    background: #e8f5e9;
+    padding: 40px 20px;
+    border-radius: 16px;
+    border: 2px dashed #81c784;
+}
+
+.game-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 25px;
+    text-align: center;
+}
+
+.status-item {
+    margin: 12px 0;
+    font-weight: bold;
+    text-align: left;
+}
+
+.bar-container {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.bar {
+    height: 100%;
+    width: 50%;
+    transition: width 0.4s ease;
+}
+
+#bar-producao { background-color: #ff9800; }
+#bar-ambiente { background-color: #4caf50; }
+
+.card-dilema {
+    background-color: #8d6e63;
+    color: white;
+    padding: 25px 15px;
+    border-radius: 10px;
+    margin: 25px 0;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.button-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:active { transform: scale(0.98); }
+.btn-a { background-color: #ffe0b2; color: #e65100; border: 1px solid #ffb74d; }
+.btn-b { background-color: #c8e6c9; color: #1b5e20; border: 1px solid #81c784; }
+
+/* Rodapé */
+footer {
+    background-color: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+}
